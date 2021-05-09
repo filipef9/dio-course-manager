@@ -1,4 +1,12 @@
 <h2>Course List</h2>
+
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">Filter By:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" [(ngModel)]="filter">
+    </div>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -12,18 +20,20 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let course of courses">
-            <th scope="row">{{ course.code }}</th>
+        <tr *ngFor="let course of filteredCourses">
+            <th scope="row">{{ course.code | lowercase | replace: '-' : ' ' }}</th>
             <td>
                 <img [src]="course.imageUrl" [alt]="course.name" width="32" height="32">
             </td>
             <td>{{ course.name }}</td>
             <td>{{ course.price }}</td>
-            <td>{{ course.releaseDate }}</td>
+            <td>{{ course.releaseDate | date: 'dd/MM/yyyy' }}</td>
             <td>
                 <app-star [rating]="course.rating"></app-star>
             </td>
-            <td></td>
+            <td>
+                <a [routerLink]="['/courses/info', course.id]" class="btn btn-primary">Edit</a>
+            </td>
         </tr>
     </tbody>
 </table>
