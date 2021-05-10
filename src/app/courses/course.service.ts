@@ -1,23 +1,30 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { Course } from "./course";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CourseService {
+
+    private apiUrl = 'https://3100-coral-carp-zd40s060.ws-us03.gitpod.io/api';
+
+    constructor(private httpClient: HttpClient) { }
     
-    retrieveAll(): Course[] {
-        return COURSES;
+    retrieveAll(): Observable<Course[]> {
+        return this.httpClient.get<Course[]>(`${this.apiUrl}/courses`);
     }
     
-    retrieveById(id: number): Course {
-        return COURSES.find((course: Course) => course.id === id);
+    retrieveById(id: number): Observable<Course> {
+        return this.httpClient.get<Course>(`${this.apiUrl}/courses/${id}`);
     }
     
-    save(courseToSave: Course): void {
+    save(courseToSave: Course): Observable<Course> {
         if (courseToSave.id) {
-            const index = COURSES.findIndex((course: Course) => course.id === courseToSave.id);
-            COURSES[index] = courseToSave;
+            return this.httpClient.put<Course>(`${this.apiUrl}/courses/${courseToSave.id}`, courseToSave);
+        } else {
+            return this.httpClient.post<Course>(`${this.httpClient}/courses`, courseToSave);
         }
     }
 
