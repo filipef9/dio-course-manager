@@ -8,7 +8,7 @@ import { Course } from "./course";
 })
 export class CourseService {
 
-    private apiUrl = 'https://3100-coral-carp-zd40s060.ws-us03.gitpod.io/api';
+    private apiUrl = 'https://3100-coral-carp-zd40s060.ws-us04.gitpod.io/api';
 
     constructor(private httpClient: HttpClient) { }
     
