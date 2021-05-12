@@ -9,3 +9,4 @@ ports:
 vscode:
   extensions:
     - esbenp.prettier-vscode
+    - vscode-icons-team.vscode-icons
